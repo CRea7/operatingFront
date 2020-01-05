@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ProcedureList from "./Components/ProcedureList";
+import ProcedureInput from "./Components/ProcedureInput";
+import ProcedureApproval from "./Components/ProcedureApproval";
+import ProcedureSend from "./Components/ProcedureSend";
+import ProcedureDelete from "./Components/ProcedureDelete";
+import ProcedureRevision from "./Components/ProcedureRevision";
+
+class App extends Component {
+  render() {
+    return (
+        <div>
+          <ProcedureInput/>
+          <ProcedureList/>
+          <ProcedureSend/>
+          <ProcedureApproval/>
+          <ProcedureRevision/>
+          <ProcedureDelete/>
+        </div>
+    );
+  }
 }
 
 export default App;
