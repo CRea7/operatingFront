@@ -32,9 +32,6 @@ table {
   border: 1px solid black;
 }
 
-td {
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
