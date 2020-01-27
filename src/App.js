@@ -16,14 +16,10 @@ class App extends Component {
         <Router>
         <div>
             <Nav/>
-          <ProcedureInput/>
           <Switch>
             <Route path="/procedures" component={ProcedureList} />
-            <Route path="/AddProcedure" component={ProcedureSend}/>
+            <Route path="/AddProcedure" component={ProcedureInput}/>
           </Switch>
-          <ProcedureApproval/>
-          <ProcedureRevision/>
-          <ProcedureDelete/>
         </div>
         </Router>
     );

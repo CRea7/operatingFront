@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import { Table} from 'react-bootstrap';
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcdureList extends React.Component{
@@ -16,25 +18,39 @@ export default class ProcdureList extends React.Component{
     }
 
     render() {
-        return this.state.procedures.map(procedure => {
+
+
+
+        const contents = this.state.procedures.map(procedure => {
+            return<tr>
+                <td>{procedure.id}</td>
+                <td>{procedure.title}</td>
+                <td>{procedure.revnum}</td>
+                <td>{procedure.status}</td>
+            </tr>
+        })
             return(
-                <table>
-                    <tr>
-                        <td>{procedure.id}</td>
-                        <td>{procedure.title}</td>
-                        <td>{procedure.revnum}</td>
-                        <td>{procedure.status}</td>
-                    </tr>
-                </table>
+                <Table className="protable" striped bordered hover>
+                    <thead>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Revision No.</th>
+                        <th>status</th>
+                    </thead>
+                    <tbody>
+                    {contents}
+                    </tbody>
+                </Table>
+
+
             )
         }
-        );
         // return(
         //     <ul>
         //         {this.state.procedures.map(procedure => (<li key ={procedure.id}>{procedure.title}</li>))}
         //     </ul>
         // )
-    }
+
 }
 
 /*
