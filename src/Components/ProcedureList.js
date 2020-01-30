@@ -19,11 +19,23 @@ export default class ProcdureList extends React.Component{
         });
     }
 
-    handleDelete = ( procedure) => {
+    //deletes the selected procedure
+    handleDelete = (procedure) => {
 
         var id = procedure.id;
 
         axios.delete(`http://localhost:3000/api/procedures/${id}`)
+            .then(res => {
+                console.log(res)
+            })
+    }
+
+    //sends the clicked procedure for approval
+    handleSendApprove = (procedure) => {
+
+        var id = procedure.id;
+
+        axios.put(`http://localhost:3000/api/procedures/${id}/awaiting`)
             .then(res => {
                 console.log(res)
             })
@@ -40,7 +52,8 @@ export default class ProcdureList extends React.Component{
                 <td>{procedure.revnum}</td>
                 <td>{procedure.department}</td>
                 <td>{procedure.status}</td>
-                <td onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(procedure) } }>delete</td>
+                <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }>delete</td>
+                <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }>Send for approval</td>
             </tr>
         })
             return(
@@ -53,6 +66,7 @@ export default class ProcdureList extends React.Component{
                         <th>Department</th>
                         <th>Status</th>
                         <th>Delete</th>
+                        <th>Send for approval</th>
                     </thead>
                     <tbody>
                     {contents}
