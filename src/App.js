@@ -19,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route path="/procedures" component={ProcedureList} />
             <Route path="/AddProcedure" component={ProcedureInput}/>
+
           </Switch>
         </div>
         </Router>

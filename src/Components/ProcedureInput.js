@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../App.css';
 import { Form, Button} from 'react-bootstrap';
 //import procedureservice from "../services/procedureservice";
 
@@ -32,10 +33,10 @@ export default class ProcdureList extends React.Component{
             .then(res => {
                 console.log(res)
             })
-        window.location.reload();
     }
     render() {
         return(
+            <div className="container center_div">
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Operating procedure title</Form.Label>
@@ -44,6 +45,7 @@ export default class ProcdureList extends React.Component{
                 <Form.Group controlId="exampleForm.ControlSelect1">
                     <Form.Label>Select Department</Form.Label>
                     <Form.Control as="select"  name="department" onChange={this.handleDep}>
+                        <option></option>
                         <option>General</option>
                         <option>HR</option>
                         <option>Finance</option>
@@ -57,6 +59,7 @@ export default class ProcdureList extends React.Component{
                 </Form.Group>
                 <Button type="submit">submit draft</Button>
             </Form>
+            </div>
         )
     }
 }
