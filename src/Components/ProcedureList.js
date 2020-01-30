@@ -19,8 +19,7 @@ export default class ProcdureList extends React.Component{
         });
     }
 
-    handleDelete = (e, procedure) => {
-        e.preventDefault();
+    handleDelete = ( procedure) => {
 
         var id = procedure.id;
 
@@ -41,7 +40,7 @@ export default class ProcdureList extends React.Component{
                 <td>{procedure.revnum}</td>
                 <td>{procedure.department}</td>
                 <td>{procedure.status}</td>
-                <td onClick={e => this.handleDelete(e, procedure)}>delete</td>
+                <td onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.handleDelete(procedure) } }>delete</td>
             </tr>
         })
             return(
