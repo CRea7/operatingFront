@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70984aab-e138-4c36-ac77-5225a0d3fadd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProcedureDelete.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/ProcedureList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProcedureSend.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,7 +82,9 @@
       <workItem from="1579961555545" duration="2403000" />
       <workItem from="1579963983837" duration="32000" />
       <workItem from="1580139572916" duration="7454000" />
-      <workItem from="1580390147623" duration="3336000" />
+      <workItem from="1580390147623" duration="10746000" />
+      <workItem from="1580666720098" duration="272000" />
+      <workItem from="1580667271902" duration="3181000" />
     </task>
     <servers />
   </component>

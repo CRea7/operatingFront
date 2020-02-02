@@ -41,6 +41,13 @@ export default class ProcdureList extends React.Component{
             })
     }
 
+    handleClick = (procedure) => {
+
+        var id = procedure.id;
+
+        window.location.href = `/ProcedureEdit/${id}`
+    }
+
     render() {
 
 
@@ -54,6 +61,7 @@ export default class ProcdureList extends React.Component{
                 <td>{procedure.status}</td>
                 <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }>delete</td>
                 <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }>Send for approval</td>
+                <td onClick={() => this.handleClick(procedure)}>edit</td>
             </tr>
         })
             return(
@@ -67,6 +75,7 @@ export default class ProcdureList extends React.Component{
                         <th>Status</th>
                         <th>Delete</th>
                         <th>Send for approval</th>
+                        <th>Edit</th>
                     </thead>
                     <tbody>
                     {contents}
@@ -77,35 +86,4 @@ export default class ProcdureList extends React.Component{
 
             )
         }
-        // return(
-        //     <ul>
-        //         {this.state.procedures.map(procedure => (<li key ={procedure.id}>{procedure.title}</li>))}
-        //     </ul>
-        // )
-
 }
-
-/*
-const ProcedureList = () => {
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Revision Number</th>
-                <th>Status</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </tbody>
-        </table>
-    );
-}*/
