@@ -52,6 +52,28 @@ export default class ProcedureEdit extends React.Component {
             })
     }
 
+    handleApprove = event => {
+        event.preventDefault();
+
+        const {id} = this.props.match.params
+
+        axios.put(`http://localhost:3000/api/procedures/${id}/current`)
+            .then(res => {
+                console.log(res)
+            })
+    }
+
+    handleSubmitDraft = event => {
+        event.preventDefault();
+
+        const {id} = this.props.match.params
+
+        axios.put(`http://localhost:3000/api/procedures/${id}/draft`)
+            .then(res => {
+                console.log(res)
+            })
+    }
+
 
     render() {
 
@@ -79,6 +101,10 @@ export default class ProcedureEdit extends React.Component {
                     </Form.Group>
                     <Button type="submit">submit changes</Button>
                 </Form>
+                <div className="space">
+                    <Button onClick={this.handleApprove}>Approve</Button>
+                    <Button onClick={this.handleSubmitDraft}>Deny</Button>
+                </div>
             </div>
         )
     }

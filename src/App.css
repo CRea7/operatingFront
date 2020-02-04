@@ -41,6 +41,10 @@ protable {
   width:80% /* value of your choice which suits your alignment */
 }
 
+.space{
+  padding-top: 20px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
