@@ -24,7 +24,9 @@ export default class ProcedureEdit extends React.Component {
         axios.get(`http://localhost:3000/api/procedures/${id}`).then(res => {
             console.log(res.data.data);
             this.setState({procedures: res.data.data});
+            this.myFunction()
         });
+
 
         console.log(this.state.procedures)
     }
@@ -74,6 +76,18 @@ export default class ProcedureEdit extends React.Component {
             })
     }
 
+    //shows and hides approval buttons
+     myFunction() {
+        var x = document.getElementById("myDIV");
+        if (this.state.procedures.status == "awaiting approval") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+
+        console.log(this.state.procedures.status)
+    }
+
 
     render() {
 
@@ -101,7 +115,7 @@ export default class ProcedureEdit extends React.Component {
                     </Form.Group>
                     <Button type="submit">submit changes</Button>
                 </Form>
-                <div className="space">
+                <div id="myDIV">
                     <Button onClick={this.handleApprove}>Approve</Button>
                     <Button onClick={this.handleSubmitDraft}>Deny</Button>
                 </div>

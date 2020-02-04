@@ -9,7 +9,12 @@ import { Table} from 'react-bootstrap';
 export default class ProcdureList extends React.Component{
     state = {
         procedures: [],
-        id: ""
+        id: "",
+        title: "",
+        revnum: "",
+        status: "",
+        department: "",
+        content: ""
     }
 
     componentDidMount() {
@@ -48,6 +53,53 @@ export default class ProcdureList extends React.Component{
         window.location.href = `/ProcedureEdit/${id}`
     }
 
+    //revision functions
+    handleRevision = (procedure) => {
+
+        var id = procedure.id;
+
+        axios.get(`http://localhost:3000/api/procedures/${id}`,)
+            .then(res => {
+                console.log(res)
+                this.setState({title: res.data.data.title, revnum: res.data.data.revnum, status: res.data.data.status, department: res.data.data.department, content: res.data.data.content})
+                this.handleSubmitArchive(procedure.id)
+                this.handleCreate()
+            })
+    }
+
+    //changes old versions to archive
+    handleSubmitArchive = (id) => {
+        axios.put(`http://localhost:3000/api/procedures/${id}/archive`)
+            .then(res => {
+                console.log(res)
+            })
+    }
+
+    //creates new procedure after revision
+    handleCreate = event => {
+
+        const revnoo = this.state.revnum;
+        const revnoop = parseInt(revnoo)
+        const hake = revnoop + 1;
+
+        axios.post(`http://localhost:3000/api/procedures`, {title: this.state.title, revnum: hake, status: "draft", department: this.state.department, content: this.state.content})
+            .then(res => {
+                console.log(res)
+            })
+
+    }
+
+    reviseCheck(procedure) {
+        if(procedure.status === "current")
+        {
+            if (window.confirm('Are you sure you wish to revise this procedure?')) this.handleRevision(procedure)
+        }
+        else
+        {
+            alert("can only revise current procedures")
+        }
+    }
+
     render() {
 
 
@@ -62,6 +114,7 @@ export default class ProcdureList extends React.Component{
                 <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }>delete</td>
                 <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }>Send for approval</td>
                 <td onClick={() => this.handleClick(procedure)}>edit</td>
+                <td onClick={() => this.reviseCheck(procedure)}>Revise</td>
             </tr>
         })
             return(
@@ -76,6 +129,7 @@ export default class ProcdureList extends React.Component{
                         <th>Delete</th>
                         <th>Send for approval</th>
                         <th>Edit</th>
+                        <th>revise</th>
                     </thead>
                     <tbody>
                     {contents}

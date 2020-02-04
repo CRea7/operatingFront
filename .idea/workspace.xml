@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProcedureList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureList.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +84,7 @@
       <workItem from="1580666720098" duration="272000" />
       <workItem from="1580667271902" duration="3181000" />
       <workItem from="1580763777532" duration="4000" />
-      <workItem from="1580816347253" duration="1074000" />
+      <workItem from="1580816347253" duration="3313000" />
     </task>
     <servers />
   </component>
