@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from "react-fontawesome";
 import '../App.css';
-import {Button, Form, Table} from 'react-bootstrap';
+import {Button, Form} from 'react-bootstrap';
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcedureEdit extends React.Component {
@@ -79,7 +78,7 @@ export default class ProcedureEdit extends React.Component {
     //shows and hides approval buttons
      myFunction() {
         var x = document.getElementById("myDIV");
-        if (this.state.procedures.status == "awaiting approval") {
+        if (this.state.procedures.status === "awaiting approval") {
             x.style.display = "block";
         } else {
             x.style.display = "none";

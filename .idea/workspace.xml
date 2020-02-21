@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70984aab-e138-4c36-ac77-5225a0d3fadd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Components/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/ProcedureList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureList.js" afterDir="false" />
     </list>
@@ -84,7 +87,17 @@
       <workItem from="1580666720098" duration="272000" />
       <workItem from="1580667271902" duration="3181000" />
       <workItem from="1580763777532" duration="4000" />
-      <workItem from="1580816347253" duration="3313000" />
+      <workItem from="1580816347253" duration="3457000" />
+      <workItem from="1580847928037" duration="2000" />
+      <workItem from="1580998111589" duration="2000" />
+      <workItem from="1581077933769" duration="3000" />
+      <workItem from="1581520961725" duration="2000" />
+      <workItem from="1581533817956" duration="3000" />
+      <workItem from="1581946964211" duration="2000" />
+      <workItem from="1582035398808" duration="2000" />
+      <workItem from="1582053031975" duration="3000" />
+      <workItem from="1582207211233" duration="2344000" />
+      <workItem from="1582292172493" duration="5851000" />
     </task>
     <servers />
   </component>

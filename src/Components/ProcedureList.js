@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from "react-fontawesome";
 import '../App.css';
 import { Table} from 'react-bootstrap';
 //import procedureservice from "../services/procedureservice";
