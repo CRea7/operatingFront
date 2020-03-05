@@ -3,24 +3,44 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { Table} from 'react-bootstrap';
+import {forEach} from "react-bootstrap/cjs/ElementChildren";
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcdureList extends React.Component{
-    state = {
-        procedures: [],
-        id: "",
-        title: "",
-        revnum: "",
-        status: "",
-        department: "",
-        content: ""
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            procedures: [],
+            refined: [],
+            id: "",
+            title: "",
+            revnum: "",
+            status: "",
+            department: "",
+            content: ""
+        };
     }
 
     componentDidMount() {
         axios.get(`http://localhost:3000/api/procedures`).then(res => {
-           console.log(res.data.data);
-           this.setState({procedures: res.data.data});
+            console.log(res.data.data);
+            var ref = [];
+            res.data.data.forEach(procedure => {
+                console.log("DEP1 " + procedure.department)
+                console.log("DEP2 ")
+                if(procedure.department === this.props.user.department) {
+                    console.log("Im Alive")
+                    ref.push(procedure)
+                }
+            })
+            this.setState({procedures: ref});
         });
+    }
+
+    getData (){
+
     }
 
     //deletes the selected procedure
@@ -118,6 +138,7 @@ export default class ProcdureList extends React.Component{
         })
             return(
                 <div className="container center_div">
+                    <h1>Status: {this.props.loggedInStatus}</h1>
                 <Table className="protable" striped bordered hover>
                     <thead>
                         <th>ID</th>

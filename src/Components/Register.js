@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import axios from "axios";
-import {register} from "../serviceWorker";
 
 export  default class Register extends Component{
     constructor(props) {
@@ -14,6 +13,12 @@ export  default class Register extends Component{
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this)
+    }
+
+    handleSuccessfulAuth(data) {
+        this.props.handleLogin(data);
+        //this.props.history.push("/procedures")
     }
 
     handleSubmit = event => {
@@ -26,6 +31,9 @@ export  default class Register extends Component{
         },
             {withCredentials: true}
             ).then(res => {
+                if (res.data.status === 'created') {
+                    this.handleSuccessfulAuth(res.data)
+                }
             console.log("registration response", res);
         }).catch(error => {
             console.log("registration error", error);
@@ -41,6 +49,7 @@ export  default class Register extends Component{
     render() {
         return (
             <div>
+                <h1>Status: {this.props.loggedInStatus}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required />
                     <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
@@ -48,6 +57,7 @@ export  default class Register extends Component{
 
                     <button type="submit">Register</button>
                 </form>
+
             </div>
         )
     }

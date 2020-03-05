@@ -1,8 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
-import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
-import {Link} from 'react-router-dom'
+import { Navbar, Nav} from 'react-bootstrap';
 
 function Navq() {
     return (
