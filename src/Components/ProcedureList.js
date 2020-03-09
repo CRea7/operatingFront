@@ -30,7 +30,7 @@ export default class ProcdureList extends React.Component{
             res.data.data.forEach(procedure => {
                 console.log("DEP1 " + procedure.department)
                 console.log("DEP2 ")
-                if(procedure.department === this.props.user.department) {
+                if(procedure.department === this.props.user.department || procedure.department === "General") {
                     console.log("Im Alive")
                     ref.push(procedure)
                 }
