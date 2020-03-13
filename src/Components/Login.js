@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Register from "./Register";
 import axios from "axios";
+import {Button, Form} from "react-bootstrap";
 
 export  default class Login extends Component{
     constructor(props) {
@@ -46,16 +47,28 @@ export  default class Login extends Component{
 
     render() {
         return (
-            <div>
-                <h1>Status: {this.props.loggedInStatus}</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required />
-                    <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
 
-                    <button type="submit">Login</button>
-                </form>
-                <Register/>
+            <div className="container center_div">
+                <div className="row">
+                    <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div className="card card-signin my-5">
+                            <div className="card-body">
+                                <h5 class="card-title text-center">Sign In</h5>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Control type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required/>
+                    </Form.Group>
+                    <Form.Group controlId="exampleForm.ControlInput1">
+                        <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required/>
+                    </Form.Group>
+                    <Button class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</Button>
+                </Form>
+                            </div>
+                        </div>
+                    </div>
             </div>
+            </div>
+
         )
     }
 

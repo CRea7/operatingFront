@@ -6,12 +6,26 @@ import { Form, Button} from 'react-bootstrap';
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcdureList extends React.Component{
-    state = {
-        title: "",
-        revnum: 1,
-        status: "draft",
-        department: "",
-        content: ""
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: "",
+            revnum: 1,
+            status: "draft",
+            department: "",
+            content: ""
+        };
+    }
+
+    componentDidMount() {
+        //loads navbar
+        this.props.checkLoginStatus()
+        //checks if user is logged in
+        if(localStorage.getItem('id') == null)
+        {
+            this.props.history.push("/")
+        }
     }
 
     handleChange = event => {
@@ -36,7 +50,7 @@ export default class ProcdureList extends React.Component{
     }
     render() {
         return(
-            <div className="container center_div">
+            <div className="container center_div borders">
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Operating procedure title</Form.Label>

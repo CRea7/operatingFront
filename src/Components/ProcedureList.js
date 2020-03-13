@@ -28,6 +28,7 @@ export default class ProcdureList extends React.Component{
         {
             this.props.history.push("/")
         }
+        this.props.checkLoginStatus()
         axios.get(`http://localhost:3000/api/procedures`).then(res => {
             console.log(res.data.data);
             var ref = [];
@@ -137,7 +138,6 @@ export default class ProcdureList extends React.Component{
         })
             return(
                 <div className="container center_div">
-                    <h1>Status: {this.props.loggedInStatus}</h1>
                 <Table className="protable" striped bordered hover>
                     <thead>
                         <th>ID</th>

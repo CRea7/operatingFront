@@ -19,6 +19,7 @@ class App extends Component {
             email: "",
             department: "",
             id: "",
+            isNavBarHidden: true
         }
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -35,7 +36,8 @@ class App extends Component {
                 loggedInStatus: "LOGGED_IN",
                 email: localStorage.getItem('email'),
                 department: localStorage.getItem('department'),
-                id: localStorage.getItem('id')
+                id: localStorage.getItem('id'),
+                isNavBarHidden: null
             })
         }
         else
@@ -46,12 +48,14 @@ class App extends Component {
                 email: "",
                 department: "",
                 id: "",
+                isNavBarHidden: true
             })
         }
     }
 
     handleLog(){
         localStorage.clear()
+        window.location.reload();
     }
     handleLogin(data){
         localStorage.setItem('email', data.user.email)
@@ -71,7 +75,7 @@ class App extends Component {
     return (
         <Router>
         <div>
-            <Nav/>
+            {(this.state.isNavBarHidden) ? null : <Nav/> }
           <Switch>
             <Route
                 exact path="/"
@@ -81,13 +85,20 @@ class App extends Component {
             <Route
                 path="/procedures"
                 render = {props => (
-                    <ProcedureList {... props} email={this.state.email} department={this.state.department} loggedInStatus={this.state.loggedInStatus}/>
+                    <ProcedureList {... props} checkLoginStatus ={() => this.checkLoginStatus()} email={this.state.email} department={this.state.department} loggedInStatus={this.state.loggedInStatus}/>
                     )} />
-            <Route path="/AddProcedure" component={ProcedureInput}/>
+              <Route
+                  path="/Register"
+                  render = {props => (
+                      <Register {... props} checkLoginStatus ={() => this.checkLoginStatus()} />
+                  )} />
+            <Route
+                path="/AddProcedure"
+                render = {props => (
+                    <ProcedureInput {... props} checkLoginStatus ={() => this.checkLoginStatus()} />
+                )} />
             <Route path="/ProcedureEdit/:id" component={ProcedureEdit}/>
           </Switch>
-            <button onClick={() => this.checkLoginStatus()}>Check</button>
-            <button onClick={() => this.handleLog()}>i dunno</button>
         </div>
         </Router>
     );
