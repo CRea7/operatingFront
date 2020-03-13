@@ -24,14 +24,16 @@ export default class ProcdureList extends React.Component{
     }
 
     componentDidMount() {
+        if(localStorage.getItem('id') == null)
+        {
+            this.props.history.push("/")
+        }
         axios.get(`http://localhost:3000/api/procedures`).then(res => {
             console.log(res.data.data);
             var ref = [];
+            //loads correct data
             res.data.data.forEach(procedure => {
-                console.log("DEP1 " + procedure.department)
-                console.log("DEP2 ")
-                if(procedure.department === this.props.user.department || procedure.department === "General") {
-                    console.log("Im Alive")
+                if(procedure.department === this.props.department || procedure.department === "General") {
                     ref.push(procedure)
                 }
             })
@@ -39,9 +41,6 @@ export default class ProcdureList extends React.Component{
         });
     }
 
-    getData (){
-
-    }
 
     //deletes the selected procedure
     handleDelete = (procedure) => {

@@ -5,7 +5,7 @@ import { Navbar, Nav} from 'react-bootstrap';
 function Navq() {
     return (
         <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="/home">Operating Pro App</Navbar.Brand>
+            <Navbar.Brand href="/">Operating Pro App</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">

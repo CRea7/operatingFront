@@ -16,7 +16,9 @@ class App extends Component {
 
         this.state = {
             loggedInStatus: "NOT_LOGGED_IN",
-            user: {}
+            email: "",
+            department: "",
+            id: "",
         }
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -27,17 +29,41 @@ class App extends Component {
     }
 
     checkLoginStatus() {
-        Axios.get("http://localhost:3000/api/logged_in", {withCredentials: true}).then(res => {
-            console.log("logged in?", res);
-        }).catch(error => {
-            console.log("check login error", error);
-        })
+        if(localStorage.getItem('id') != null){
+            console.log("HERE")
+            this.setState({
+                loggedInStatus: "LOGGED_IN",
+                email: localStorage.getItem('email'),
+                department: localStorage.getItem('department'),
+                id: localStorage.getItem('id')
+            })
+        }
+        else
+        {
+            localStorage.clear()
+            this.setState({
+                loggedInStatus: "NOT_LOGGED_IN",
+                email: "",
+                department: "",
+                id: "",
+            })
+        }
     }
 
+    handleLog(){
+        localStorage.clear()
+    }
     handleLogin(data){
+        localStorage.setItem('email', data.user.email)
+        localStorage.setItem('id', data.user.id)
+        localStorage.setItem('department',data.user.department)
+        console.log("DEPARTMENT " + localStorage.getItem('department'))
+
         this.setState({
             loggedInStatus: "LOGGED_IN",
-            user: data.user
+            email: localStorage.getItem('email'),
+            department: localStorage.getItem('department'),
+            id: localStorage.getItem('id')
         })
     }
 
@@ -55,12 +81,13 @@ class App extends Component {
             <Route
                 path="/procedures"
                 render = {props => (
-                    <ProcedureList {... props} user={this.state.user} loggedInStatus={this.state.loggedInStatus}/>
+                    <ProcedureList {... props} email={this.state.email} department={this.state.department} loggedInStatus={this.state.loggedInStatus}/>
                     )} />
             <Route path="/AddProcedure" component={ProcedureInput}/>
             <Route path="/ProcedureEdit/:id" component={ProcedureEdit}/>
           </Switch>
             <button onClick={() => this.checkLoginStatus()}>Check</button>
+            <button onClick={() => this.handleLog()}>i dunno</button>
         </div>
         </Router>
     );
