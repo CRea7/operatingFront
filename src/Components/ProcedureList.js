@@ -1,9 +1,9 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { Table} from 'react-bootstrap';
-import {forEach} from "react-bootstrap/cjs/ElementChildren";
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcdureList extends React.Component{
@@ -19,6 +19,8 @@ export default class ProcdureList extends React.Component{
             revnum: "",
             status: "",
             department: "",
+            admin: "",
+            approver: "",
             content: ""
         };
     }
@@ -28,18 +30,33 @@ export default class ProcdureList extends React.Component{
         {
             this.props.history.push("/")
         }
-        this.props.checkLoginStatus()
-        axios.get(`http://localhost:3000/api/procedures`).then(res => {
-            console.log(res.data.data);
-            var ref = [];
-            //loads correct data
-            res.data.data.forEach(procedure => {
-                if(procedure.department === this.props.department || procedure.department === "General") {
-                    ref.push(procedure)
-                }
-            })
-            this.setState({procedures: ref});
-        });
+        //checks logged in user
+        this.props.checkLoginStatus();
+
+
+        if(localStorage.getItem('approver') === "True") {
+            axios.get(`http://localhost:3000/api/procedures`).then(res => {
+                console.log(res.data.data);
+                var ref = [];
+                //loads correct data
+                res.data.data.forEach(procedure => {
+                    if (procedure.department === this.props.department || procedure.department === "General") {
+                        ref.push(procedure)
+                    }
+                })
+                this.setState({procedures: ref});
+            });
+        }
+        else if (localStorage.getItem('admin')=== "True"){
+            axios.get(`http://localhost:3000/api/procedures`).then(res => {
+                console.log(res.data.data);
+                this.setState({procedures: res.data.data});
+            });
+        }
+        else {
+            //TO:DO
+            //send off page
+        }
     }
 
 
@@ -130,10 +147,10 @@ export default class ProcdureList extends React.Component{
                 <td>{procedure.revnum}</td>
                 <td>{procedure.department}</td>
                 <td>{procedure.status}</td>
-                <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }>delete</td>
-                <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }>Send for approval</td>
-                <td onClick={() => this.handleClick(procedure)}>edit</td>
-                <td onClick={() => this.reviseCheck(procedure)}>Revise</td>
+                <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }><FontAwesomeIcon icon="trash"></FontAwesomeIcon></td>
+                <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }><FontAwesomeIcon icon="paper-plane"/></td>
+                <td onClick={() => this.handleClick(procedure)}><FontAwesomeIcon icon="pencil-alt"></FontAwesomeIcon></td>
+                <td onClick={() => this.reviseCheck(procedure)}> <FontAwesomeIcon icon="recycle"/> </td>
             </tr>
         })
             return(
@@ -146,7 +163,7 @@ export default class ProcdureList extends React.Component{
                         <th>Department</th>
                         <th>Status</th>
                         <th>Delete</th>
-                        <th>Send for approval</th>
+                        <th>Approval</th>
                         <th>Edit</th>
                         <th>revise</th>
                     </thead>

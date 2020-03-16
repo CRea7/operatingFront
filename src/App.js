@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import ReactDOM from 'react-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {faTrash, faPencilAlt, faPaperPlane, faRecycle } from '@fortawesome/free-solid-svg-icons'
+
 import ProcedureList from "./Components/ProcedureList";
 import ProcedureInput from "./Components/ProcedureInput";
 import ProcedureEdit from "./Components/ProcedureEdit";
@@ -10,6 +14,8 @@ import Axios from "axios";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from "./Components/Login";
 
+library.add(faTrash, faPencilAlt, faPaperPlane, faRecycle)
+
 class App extends Component {
     constructor(){
         super();
@@ -19,6 +25,8 @@ class App extends Component {
             email: "",
             department: "",
             id: "",
+            admin: "",
+            approver: "",
             isNavBarHidden: true
         }
 
@@ -37,6 +45,8 @@ class App extends Component {
                 email: localStorage.getItem('email'),
                 department: localStorage.getItem('department'),
                 id: localStorage.getItem('id'),
+                admin: localStorage.getItem('admin'),
+                approver: localStorage.getItem('approver'),
                 isNavBarHidden: null
             })
         }
@@ -48,6 +58,8 @@ class App extends Component {
                 email: "",
                 department: "",
                 id: "",
+                admin: "",
+                approver: "",
                 isNavBarHidden: true
             })
         }
@@ -58,16 +70,21 @@ class App extends Component {
         window.location.reload();
     }
     handleLogin(data){
-        localStorage.setItem('email', data.user.email)
-        localStorage.setItem('id', data.user.id)
-        localStorage.setItem('department',data.user.department)
-        console.log("DEPARTMENT " + localStorage.getItem('department'))
+        localStorage.setItem('email', data.user.email);
+        localStorage.setItem('id', data.user.id);
+        localStorage.setItem('department',data.user.department);
+        localStorage.setItem('admin' ,data.user.admin);
+        localStorage.setItem('approver' ,data.user.approver);
+
+        console.log("TESSST" + localStorage.getItem('admin'));
 
         this.setState({
             loggedInStatus: "LOGGED_IN",
             email: localStorage.getItem('email'),
             department: localStorage.getItem('department'),
-            id: localStorage.getItem('id')
+            id: localStorage.getItem('id'),
+            admin: localStorage.getItem('admin'),
+            approver: localStorage.getItem('approver')
         })
     }
 
@@ -85,7 +102,12 @@ class App extends Component {
             <Route
                 path="/procedures"
                 render = {props => (
-                    <ProcedureList {... props} checkLoginStatus ={() => this.checkLoginStatus()} email={this.state.email} department={this.state.department} loggedInStatus={this.state.loggedInStatus}/>
+                    <ProcedureList {... props} checkLoginStatus ={() => this.checkLoginStatus()}
+                                   email={this.state.email}
+                                   department={this.state.department}
+                                   admin={this.state.admin}
+                                   approver={this.state.approver}
+                                   loggedInStatus={this.state.loggedInStatus}/>
                     )} />
               <Route
                   path="/Register"

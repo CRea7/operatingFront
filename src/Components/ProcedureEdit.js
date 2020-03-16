@@ -16,6 +16,13 @@ export default class ProcedureEdit extends React.Component {
     }
 
     componentDidMount() {
+        //Login check
+        if(localStorage.getItem('id') == null)
+        {
+            this.props.history.push("/")
+        }
+        //Loads Navbar
+
         const {id} = this.props.match.params
 
         console.log(id)

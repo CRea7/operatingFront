@@ -43,7 +43,7 @@ export default class ProcdureList extends React.Component{
     handleSubmit = event => {
         event.preventDefault();
 
-        axios.post(`http://localhost:3000/api/procedures`, {title: this.state.title, revnum: this.state.revnum, status: this.state.status, department: this.state.department, content: this.state.content})
+        axios.post(`http://localhost:3000/api/procedures`, {title: this.state.title, revnum: this.state.revnum, status: this.state.status, department: this.state.department, content: this.state.content, creator: localStorage.getItem('email')})
             .then(res => {
                 console.log(res)
             })

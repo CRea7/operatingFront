@@ -10,6 +10,9 @@ export  default class Register extends Component{
             email: "",
             password: "",
             password_confirmation: "",
+            department: "",
+            admin: "",
+            approver: "",
             registrationErrors: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,7 +41,10 @@ export  default class Register extends Component{
         axios.post(`http://localhost:3000/registrations`, {
             email: this.state.email,
             password: this.state.password,
-            password_confirmation: this.state.password_confirmation
+            password_confirmation: this.state.password_confirmation,
+                department: this.state.department,
+            admin: this.state.admin,
+            approver: this.state.approver
         },
             {withCredentials: true}
             ).then(res => {
@@ -77,9 +83,36 @@ export  default class Register extends Component{
                                                       required/>
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.ControlInput1">
-                                        <Form.Control type="password_confirmation" name="password_confirmation" placeholder="Password confirmation"
+                                        <Form.Control type="password" name="password_confirmation" placeholder="Password confirmation"
                                                       value={this.state.password_confirmation} onChange={this.handleChange}
                                                       required/>
+                                    </Form.Group>
+                                    <Form.Group controlId="exampleForm.ControlSelect1">
+                                        <Form.Label>Select Department</Form.Label>
+                                        <Form.Control as="select"  name="department" onChange={this.handleChange}>
+                                            <option></option>
+                                            <option>General</option>
+                                            <option>HR</option>
+                                            <option>Finance</option>
+                                            <option>Development</option>
+                                            <option>Purchasing</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group controlId="exampleForm.ControlSelect1">
+                                        <Form.Label>Admin</Form.Label>
+                                        <Form.Control as="select"  name="admin" onChange={this.handleChange}>
+                                            <option></option>
+                                            <option>True</option>
+                                            <option>False</option>
+                                        </Form.Control>
+                                    </Form.Group>
+                                    <Form.Group controlId="exampleForm.ControlSelect1">
+                                        <Form.Label>Approver</Form.Label>
+                                        <Form.Control as="select"  name="approver" onChange={this.handleChange}>
+                                            <option></option>
+                                            <option>True</option>
+                                            <option>False</option>
+                                        </Form.Control>
                                     </Form.Group>
                                     <Button class="btn btn-lg btn-primary btn-block" type="submit">REGISTER</Button>
                                 </Form>
