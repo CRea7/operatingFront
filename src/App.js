@@ -2,20 +2,21 @@ import React, { Component } from 'react';
 
 import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import {faTrash, faPencilAlt, faPaperPlane, faRecycle } from '@fortawesome/free-solid-svg-icons'
+import {faTrash, faPencilAlt, faPaperPlane, faRecycle, faBookReader } from '@fortawesome/free-solid-svg-icons'
 
 import ProcedureList from "./Components/ProcedureList";
 import ProcedureInput from "./Components/ProcedureInput";
 import ProcedureEdit from "./Components/ProcedureEdit";
 import Register from "./Components/Register";
 import Training from "./Components/Training";
+import ProcedureRead from "./Components/ProcedureRead";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "./Components/nav";
 import Axios from "axios";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from "./Components/Login";
 
-library.add(faTrash, faPencilAlt, faPaperPlane, faRecycle)
+library.add(faTrash, faPencilAlt, faPaperPlane, faRecycle, faBookReader)
 
 class App extends Component {
     constructor(){
@@ -98,7 +99,7 @@ class App extends Component {
             <Route
                 exact path="/"
                 render = {props => (
-                    <Login {... props} handleLogin={this.handleLogin}loggedInStatus={this.state.loggedInStatus}/>
+                    <Login {... props} handleLogin={this.handleLogin}loggedInStatus={this.state.loggedInStatus} checkLoginStatus ={() => this.checkLoginStatus()}/>
                 )}/>
             <Route
                 path="/procedures"
@@ -121,6 +122,7 @@ class App extends Component {
                     <ProcedureInput {... props} checkLoginStatus ={() => this.checkLoginStatus()} />
                 )} />
             <Route path="/ProcedureEdit/:id" component={ProcedureEdit}/>
+            <Route path="/ProcedureRead/:id" component={ProcedureRead}/>
             <Route
                   path="/Training"
                   render = {props => (

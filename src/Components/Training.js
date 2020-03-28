@@ -45,7 +45,7 @@ export default class ProcdureList extends React.Component{
             var ref = [];
             res.data.data.forEach(train => {
                 console.log("TRAIN " + localStorage.getItem("email"))
-                if (train.email === localStorage.getItem("email")) {
+                if (train.email === localStorage.getItem("email") && train.status === "Unfinished") {
                     this.state.procedures.forEach(pro => {
                         if(train.procedure === pro.title)
                         {
@@ -74,16 +74,6 @@ export default class ProcdureList extends React.Component{
             })
     }
 
-    //sends the clicked procedure for approval
-    handleSendApprove = (procedure) => {
-
-        var id = procedure.id;
-
-        axios.put(`http://localhost:3000/api/procedures/${id}/awaiting`)
-            .then(res => {
-                console.log(res)
-            })
-    }
 
     handleClick = (procedure) => {
 
@@ -128,6 +118,13 @@ export default class ProcdureList extends React.Component{
 
     }
 
+    handleClick = (training) => {
+
+        var id = training.id;
+
+        window.location.href = `/ProcedureRead/${id}`
+    }
+
     render() {
 
 
@@ -138,6 +135,7 @@ export default class ProcdureList extends React.Component{
                 <td>{training.procedure}</td>
                 <td>{training.department}</td>
                 <td>{training.status}</td>
+                <td onClick={() => this.handleClick(training)}> <FontAwesomeIcon icon="book-reader"/> </td>
             </tr>
         })
         return(
@@ -148,6 +146,7 @@ export default class ProcdureList extends React.Component{
                     <th>Proceudre</th>
                     <th>Department</th>
                     <th>Status</th>
+                    <th>Read</th>
                     </thead>
                     <tbody>
                     {contents}

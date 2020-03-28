@@ -16,6 +16,16 @@ export  default class Login extends Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        //loads navbar
+        this.props.checkLoginStatus()
+        //checks if user is logged in
+        if(localStorage.getItem('id') != null)
+        {
+            this.props.history.push("/Procedures")
+        }
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
