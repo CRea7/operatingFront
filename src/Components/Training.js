@@ -4,6 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { Table} from 'react-bootstrap';
+import procedureservice from "../services/procedureservice";
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcdureList extends React.Component{
@@ -13,7 +14,8 @@ export default class ProcdureList extends React.Component{
 
         this.state = {
             procedures: [],
-            refined: [],
+            training: [],
+            users:[],
             id: "",
             title: "",
             revnum: "",
@@ -25,7 +27,7 @@ export default class ProcdureList extends React.Component{
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if(localStorage.getItem('id') == null)
         {
             this.props.history.push("/")
@@ -33,30 +35,31 @@ export default class ProcdureList extends React.Component{
         //checks logged in user
         this.props.checkLoginStatus();
 
+           await axios.get(`http://localhost:3000/api/procedures`).then(res => {
+            console.log(res.data.data);
+            this.setState({procedures: res.data.data});
+        });
 
-        if(localStorage.getItem('approver') === "True") {
-            axios.get(`http://localhost:3000/api/procedures`).then(res => {
-                console.log(res.data.data);
-                var ref = [];
-                //loads correct data
-                res.data.data.forEach(procedure => {
-                    if (procedure.department === this.props.department || procedure.department === "General") {
-                        ref.push(procedure)
-                    }
-                })
-                this.setState({procedures: ref});
-            });
-        }
-        else if (localStorage.getItem('admin')=== "True"){
-            axios.get(`http://localhost:3000/api/procedures`).then(res => {
-                console.log(res.data.data);
-                this.setState({procedures: res.data.data});
-            });
-        }
-        else {
-            //TO:DO
-            //send off page
-        }
+        axios.get(`http://localhost:3000/api/trianing`).then(res => {
+            console.log(res.data.data);
+            var ref = [];
+            res.data.data.forEach(train => {
+                console.log("TRAIN " + localStorage.getItem("email"))
+                if (train.email === localStorage.getItem("email")) {
+                    this.state.procedures.forEach(pro => {
+                        if(train.procedure === pro.title)
+                        {
+                            train.proId = pro.id;
+                            train.department = pro.department
+                            ref.push(train)
+                        }
+                    });
+
+                }
+            })
+            this.setState({training: ref});
+        });
+
     }
 
 
@@ -125,55 +128,34 @@ export default class ProcdureList extends React.Component{
 
     }
 
-    reviseCheck(procedure) {
-        if(procedure.status === "current")
-        {
-            if (window.confirm('Are you sure you wish to revise this procedure?')) this.handleRevision(procedure)
-        }
-        else
-        {
-            alert("can only revise current procedures")
-        }
-    }
-
     render() {
 
 
 
-        const contents = this.state.procedures.map(procedure => {
+        const contents = this.state.training.map(training => {
             return<tr>
-                <td>{procedure.id}</td>
-                <td>{procedure.title}</td>
-                <td>{procedure.revnum}</td>
-                <td>{procedure.department}</td>
-                <td>{procedure.status}</td>
-                <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }><FontAwesomeIcon icon="trash"></FontAwesomeIcon></td>
-                <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }><FontAwesomeIcon icon="paper-plane"/></td>
-                <td onClick={() => this.handleClick(procedure)}><FontAwesomeIcon icon="pencil-alt"></FontAwesomeIcon></td>
-                <td onClick={() => this.reviseCheck(procedure)}> <FontAwesomeIcon icon="recycle"/> </td>
+                <td>{training.proId}</td>
+                <td>{training.procedure}</td>
+                <td>{training.department}</td>
+                <td>{training.status}</td>
             </tr>
         })
-            return(
-                <div className="container center_div">
+        return(
+            <div className="container center_div">
                 <Table className="protable" striped bordered hover>
                     <thead>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Revision No.</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>Delete</th>
-                        <th>Approval</th>
-                        <th>Edit</th>
-                        <th>revise</th>
+                    <th>ID</th>
+                    <th>Proceudre</th>
+                    <th>Department</th>
+                    <th>Status</th>
                     </thead>
                     <tbody>
                     {contents}
                     </tbody>
                 </Table>
-                </div>
+            </div>
 
 
-            )
-        }
+        )
+    }
 }

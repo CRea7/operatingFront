@@ -8,6 +8,7 @@ import ProcedureList from "./Components/ProcedureList";
 import ProcedureInput from "./Components/ProcedureInput";
 import ProcedureEdit from "./Components/ProcedureEdit";
 import Register from "./Components/Register";
+import Training from "./Components/Training";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "./Components/nav";
 import Axios from "axios";
@@ -120,6 +121,13 @@ class App extends Component {
                     <ProcedureInput {... props} checkLoginStatus ={() => this.checkLoginStatus()} />
                 )} />
             <Route path="/ProcedureEdit/:id" component={ProcedureEdit}/>
+            <Route
+                  path="/Training"
+                  render = {props => (
+                      <Training {... props} checkLoginStatus ={() => this.checkLoginStatus()} />
+                  )} />
+
+
           </Switch>
         </div>
         </Router>

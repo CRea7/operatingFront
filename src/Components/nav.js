@@ -17,6 +17,7 @@ function Navq() {
                 <Nav className="mr-auto">
                     <Nav.Link href="/procedures">Procedures</Nav.Link>
                     <Nav.Link href="/AddProcedure">Add Procedure</Nav.Link>
+                    <Nav.Link href="/Training">Training</Nav.Link>
                 </Nav>
                 <Nav className="ml-auto">
                     <Nav.Link href="/Register">Register</Nav.Link>
