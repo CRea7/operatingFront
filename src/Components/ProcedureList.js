@@ -14,6 +14,7 @@ export default class ProcdureList extends React.Component{
         this.state = {
             procedures: [],
             refined: [],
+            users: [],
             id: "",
             title: "",
             revnum: "",
@@ -32,7 +33,7 @@ export default class ProcdureList extends React.Component{
         }
         //checks logged in user
         this.props.checkLoginStatus();
-
+        //gets all the users
 
         if(localStorage.getItem('approver') === "True") {
             axios.get(`http://localhost:3000/api/procedures`).then(res => {

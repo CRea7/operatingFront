@@ -3,38 +3,49 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import {Button, Form} from 'react-bootstrap';
+import {forEach} from "react-bootstrap/cjs/ElementChildren";
 //import procedureservice from "../services/procedureservice";
 
 export default class ProcedureEdit extends React.Component {
     state = {
         procedures: [],
-        id: "",
+        users: [],
+        email: [],
         title: "",
-        status: "draft",
+        status: "",
         department: "",
         content: ""
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         //Login check
         if(localStorage.getItem('id') == null)
         {
             this.props.history.push("/")
         }
         //Loads Navbar
-
         const {id} = this.props.match.params
 
         console.log(id)
 
-        axios.get(`http://localhost:3000/api/procedures/${id}`).then(res => {
+        await axios.get(`http://localhost:3000/api/procedures/${id}`).then(res => {
             console.log(res.data.data);
+            this.setState({title: res.data.data.title});
+            this.setState({department: res.data.data.department})
             this.setState({procedures: res.data.data});
             this.myFunction()
         });
 
+        axios.get(`http://localhost:3000/api/sessions`).then(resu => {
+            resu.data.data.forEach(user => {
+                if(user.department === this.state.department){
+                    this.state.email.push(user.email);
+                }
+            });
+        });
 
-        console.log(this.state.procedures)
+
+        console.log(this.state.email)
     }
 
     handleChange = event => {
@@ -61,27 +72,34 @@ export default class ProcedureEdit extends React.Component {
     }
 
     handleApprove = event => {
-        event.preventDefault();
 
         const {id} = this.props.match.params
+        this.training(id)
 
-        axios.put(`http://localhost:3000/api/procedures/${id}/current`)
-            .then(res => {
-                console.log(res)
-            })
+    };
+
+    training(id) {
+
+        this.state.email.forEach(user => {
+
+            axios.post(`http://localhost:3000/api/trianing`, {email: user, procedure: this.state.title, status: "Unfinished", proid: id})
+                .then(res => {
+                    console.log(res)
+                });
+        });
+
     }
 
     handleSubmitDraft = event => {
         event.preventDefault();
 
-        const {id} = this.props.match.params
+        const {id} = this.props.match.params;
 
         axios.put(`http://localhost:3000/api/procedures/${id}/draft`)
             .then(res => {
                 console.log(res)
             })
     }
-
     //shows and hides approval buttons
      myFunction() {
         var x = document.getElementById("myDIV");
