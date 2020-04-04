@@ -12,6 +12,7 @@ export default class ProcdureList extends React.Component{
         this.state = {
             title: "",
             revnum: 1,
+            file: null,
             status: "draft",
             department: "",
             content: ""
@@ -40,10 +41,24 @@ export default class ProcdureList extends React.Component{
         this.setState({content: event.target.value})
     }
 
+    onChangeHandler = event => {
+        this.setState({file: event.target.files[0], loaded: 0})
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
-        axios.post(`http://localhost:3000/api/procedures`, {title: this.state.title, revnum: this.state.revnum, status: this.state.status, department: this.state.department, content: this.state.content, creator: localStorage.getItem('email')})
+        const data = new FormData();
+
+        data.append('title', this.state.title);
+        data.append('revnum', this.state.return);
+        data.append('status', this.state.status);
+        data.append('department', this.state.department);
+        data.append('content', this.state.content);
+        data.append('creator', localStorage.getItem('email'));
+        data.append('file', new Blob(['test payload'], {type: 'text/csv'}))
+
+        axios.post(`http://localhost:3000/api/procedures`, data)
             .then(res => {
                 console.log(res)
             })
@@ -66,6 +81,10 @@ export default class ProcdureList extends React.Component{
                         <option>Development</option>
                         <option>Purchasing</option>
                     </Form.Control>
+                </Form.Group>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Procedure upload</Form.Label>
+                    <Form.Control type="file" label='Upload' name="file" onChange={this.onChangeHandler}/>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Procedure content</Form.Label>

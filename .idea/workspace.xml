@@ -4,6 +4,7 @@
     <list default="true" id="70984aab-e138-4c36-ac77-5225a0d3fadd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProcedureInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureInput.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/ProcedureList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/ProcedureList.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -119,7 +120,9 @@
       <workItem from="1585129281255" duration="1199000" />
       <workItem from="1585142951613" duration="4943000" />
       <workItem from="1585399889829" duration="7245000" />
-      <workItem from="1585568179348" duration="9229000" />
+      <workItem from="1585568179348" duration="9284000" />
+      <workItem from="1585653237952" duration="2580000" />
+      <workItem from="1586001920630" duration="2984000" />
     </task>
     <servers />
   </component>

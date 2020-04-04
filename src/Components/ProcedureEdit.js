@@ -78,7 +78,12 @@ export default class ProcedureEdit extends React.Component {
 
     };
 
-    training(id) {
+    async training(id) {
+
+        await axios.put(`http://localhost:3000/api/procedures/${id}/current`)
+            .then(res => {
+                console.log(res)
+            });
 
         this.state.email.forEach(user => {
 
@@ -87,6 +92,8 @@ export default class ProcedureEdit extends React.Component {
                     console.log(res)
                 });
         });
+
+        this.props.history.push("/Procedures")
 
     }
 

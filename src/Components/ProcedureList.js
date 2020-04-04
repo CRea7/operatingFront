@@ -80,6 +80,7 @@ export default class ProcdureList extends React.Component{
         axios.put(`http://localhost:3000/api/procedures/${id}/awaiting`)
             .then(res => {
                 console.log(res)
+                window.location.reload(false);
             })
     }
 
