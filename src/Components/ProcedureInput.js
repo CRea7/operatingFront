@@ -14,8 +14,7 @@ export default class ProcdureList extends React.Component{
             revnum: 1,
             file: null,
             status: "draft",
-            department: "",
-            content: ""
+            department: ""
         };
     }
 
@@ -51,17 +50,17 @@ export default class ProcdureList extends React.Component{
         const data = new FormData();
 
         data.append('title', this.state.title);
-        data.append('revnum', this.state.return);
+        data.append('revnum', "1");
         data.append('status', this.state.status);
         data.append('department', this.state.department);
-        data.append('content', this.state.content);
         data.append('creator', localStorage.getItem('email'));
-        data.append('file', new Blob(['test payload'], {type: 'text/csv'}))
+        data.append('file', this.state.file);
 
         axios.post(`http://localhost:3000/api/procedures`, data)
             .then(res => {
                 console.log(res)
             })
+
     }
     render() {
         return(
@@ -85,10 +84,6 @@ export default class ProcdureList extends React.Component{
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Procedure upload</Form.Label>
                     <Form.Control type="file" label='Upload' name="file" onChange={this.onChangeHandler}/>
-                </Form.Group>
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Procedure content</Form.Label>
-                    <Form.Control as="textarea" rows="3"  name="content" onChange={this.handleCont}/>
                 </Form.Group>
                 <Button type="submit">submit draft</Button>
             </Form>

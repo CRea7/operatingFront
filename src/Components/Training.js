@@ -49,6 +49,7 @@ export default class ProcdureList extends React.Component{
                     this.state.procedures.forEach(pro => {
                         if(train.procedure === pro.title)
                         {
+                            console.log("title " + pro.title)
                             train.proId = pro.id;
                             train.department = pro.department
                             ref.push(train)
@@ -58,6 +59,7 @@ export default class ProcdureList extends React.Component{
                 }
             })
             this.setState({training: ref});
+            console.log("TRAINING " + this.state.training)
         });
 
     }
@@ -75,12 +77,16 @@ export default class ProcdureList extends React.Component{
     }
 
 
-    handleClick = (procedure) => {
-
-        var id = procedure.id;
-
-        window.location.href = `/ProcedureEdit/${id}`
-    }
+    // handleClick = (procedure) => {
+    //
+    //     var id = procedure.id;
+    //
+    //     axios.get(`http://localhost:3000/api/procedures/${id}filename`,)
+    //         .then(res => {
+    //             console.log(res.data)
+    //         })
+    //     //window.location.href = `/ProcedureEdit/${id}`
+    // }
 
     //revision functions
     handleRevision = (procedure) => {
@@ -120,9 +126,23 @@ export default class ProcdureList extends React.Component{
 
     handleClick = (training) => {
 
-        var id = training.id;
+        var id = training.proId;
 
-        window.location.href = `/ProcedureRead/${id}`
+        axios.get(`http://localhost:3000/api/procedures/${id}/filename`,)
+                 .then(res => {
+                     console.log(res.data.data)
+                     window.open(res.data.data)
+                 })
+
+
+    }
+
+    handleTrainApprove = id => {
+        axios.put(`http://localhost:3000/api/trianing/${id}/complete`)
+            .then(res => {
+                console.log(res)
+            })
+        this.props.history.push("/Training")
     }
 
     render() {
@@ -136,6 +156,7 @@ export default class ProcdureList extends React.Component{
                 <td>{training.department}</td>
                 <td>{training.status}</td>
                 <td onClick={() => this.handleClick(training)}> <FontAwesomeIcon icon="book-reader"/> </td>
+                <td onClick={() => { if (window.confirm('Are you sure you want to finish training?')) this.handleTrainApprove(training.id) } }><FontAwesomeIcon icon="paper-plane"/></td>
             </tr>
         })
         return(
@@ -147,6 +168,7 @@ export default class ProcdureList extends React.Component{
                     <th>Department</th>
                     <th>Status</th>
                     <th>Read</th>
+                    <th>Approve</th>
                     </thead>
                     <tbody>
                     {contents}
