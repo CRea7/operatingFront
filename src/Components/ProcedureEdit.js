@@ -12,9 +12,9 @@ export default class ProcedureEdit extends React.Component {
         users: [],
         email: [],
         title: "",
-        status: "",
+        status: "draft",
         department: "",
-        content: ""
+        file: null
     }
 
     async componentDidMount() {
@@ -65,10 +65,25 @@ export default class ProcedureEdit extends React.Component {
 
         const {id} = this.props.match.params
 
-        axios.put(`http://localhost:3000/api/procedures/${id}`, {title: this.state.title, revnum: this.state.procedures.revnum, status: this.state.status, department: this.state.department, content: this.state.content})
+        axios.delete(`http://localhost:3000/api/procedures/${id}`)
             .then(res => {
                 console.log(res)
             })
+
+        const data = new FormData();
+
+        data.append('title', this.state.title);
+        data.append('revnum', "1");
+        data.append('status', this.state.status);
+        data.append('department', this.state.department);
+        data.append('creator', localStorage.getItem('email'));
+        data.append('file', this.state.file);
+
+        axios.post(`http://localhost:3000/api/procedures`, data)
+            .then(res => {
+                console.log(res)
+            })
+
     }
 
     handleApprove = event => {
@@ -119,6 +134,10 @@ export default class ProcedureEdit extends React.Component {
         console.log(this.state.procedures.status)
     }
 
+    onChangeHandler = event => {
+        this.setState({file: event.target.files[0], loaded: 0})
+    }
+
 
     render() {
 
@@ -141,8 +160,8 @@ export default class ProcedureEdit extends React.Component {
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Procedure content</Form.Label>
-                        <Form.Control as="textarea" placeholder={this.state.procedures.content} rows="3"  name="content" onChange={this.handleCont}/>
+                        <Form.Label>Procedure upload</Form.Label>
+                        <Form.Control type="file" label='Upload' name="file" onChange={this.onChangeHandler}/>
                     </Form.Group>
                     <Button type="submit">submit changes</Button>
                 </Form>

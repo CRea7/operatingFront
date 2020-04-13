@@ -138,6 +138,19 @@ export default class ProcdureList extends React.Component{
         }
     }
 
+    handleread = (procedure) => {
+
+        var id = procedure.id;
+
+        axios.get(`http://localhost:3000/api/procedures/${id}/filename`,)
+            .then(res => {
+                console.log(res.data.data)
+                window.open(res.data.data)
+            })
+
+
+    }
+
     render() {
 
 
@@ -145,7 +158,7 @@ export default class ProcdureList extends React.Component{
         const contents = this.state.procedures.map(procedure => {
             return<tr>
                 <td>{procedure.id}</td>
-                <td>{procedure.title}</td>
+                <td onClick={() => this.handleread(procedure)}>{procedure.title}</td>
                 <td>{procedure.revnum}</td>
                 <td>{procedure.department}</td>
                 <td>{procedure.status}</td>
