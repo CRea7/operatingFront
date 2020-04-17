@@ -12,6 +12,7 @@ export default class ProcedureEdit extends React.Component {
         users: [],
         email: [],
         title: "",
+        revnum:"1",
         status: "draft",
         department: "",
         file: null
@@ -33,12 +34,14 @@ export default class ProcedureEdit extends React.Component {
             this.setState({title: res.data.data.title});
             this.setState({department: res.data.data.department})
             this.setState({procedures: res.data.data});
+            this.setState({revnum: res.data.data.revnum})
             this.myFunction()
         });
 
         axios.get(`http://localhost:3000/api/sessions`).then(resu => {
             resu.data.data.forEach(user => {
                 if(user.department === this.state.department){
+                    console.log("users")
                     this.state.email.push(user.email);
                 }
             });
@@ -73,7 +76,7 @@ export default class ProcedureEdit extends React.Component {
         const data = new FormData();
 
         data.append('title', this.state.title);
-        data.append('revnum', "1");
+        data.append('revnum', this.state.revnum);
         data.append('status', this.state.status);
         data.append('department', this.state.department);
         data.append('creator', localStorage.getItem('email'));

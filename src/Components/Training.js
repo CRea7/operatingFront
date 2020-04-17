@@ -141,8 +141,9 @@ export default class ProcdureList extends React.Component{
         axios.put(`http://localhost:3000/api/trianing/${id}/complete`)
             .then(res => {
                 console.log(res)
+                window.location.reload(false);
             })
-        this.props.history.push("/Training")
+
     }
 
     render() {

@@ -88,7 +88,14 @@ export default class ProcdureList extends React.Component{
 
         var id = procedure.id;
 
-        window.location.href = `/ProcedureEdit/${id}`
+        if(procedure.status === "draft" || procedure.status === "awaiting approval")
+        {
+            window.location.href = `/ProcedureEdit/${id}`
+        }
+        else
+        {
+            alert("cannot edit this procedure")
+        }
     }
 
     //revision functions
@@ -100,7 +107,6 @@ export default class ProcdureList extends React.Component{
             .then(res => {
                 console.log(res)
                 this.setState({title: res.data.data.title, revnum: res.data.data.revnum, status: res.data.data.status, department: res.data.data.department, content: res.data.data.content})
-                this.handleSubmitArchive(procedure.id)
                 this.handleCreate()
             })
     }
