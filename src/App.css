@@ -29,11 +29,28 @@
 }
 table {
   width: 640px;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
-protable {
-  padding: 200px;
+.nav{
+  color: white;
+}
+
+#NAV{
+  background-color: #659af0;
+}
+
+.navbar-default .navbar-brand {
+  color: white;
+}
+
+.protable {
+  margin-top: 15px;
+}
+
+.thead{
+  background-color: #659af0;
+  color: white;
 }
 
 .center_div{
@@ -41,6 +58,16 @@ protable {
   width:80% /* value of your choice which suits your alignment */
 }
 
+.dwrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.width_div{
+  margin: 0 auto;
+  width:60%
+}
 #myDIV{
   padding-top: 20px;
 }
@@ -52,6 +79,11 @@ protable {
   to {
     transform: rotate(360deg);
   }
+}
+
+#btn1 , #btn2 {
+  margin-right: 5%;
+  display:inline-block;
 }
 
 .card-signin {
@@ -84,5 +116,6 @@ protable {
 .borders {
   border: 0;
   border-radius: 1rem;
+  padding-bottom: 10px;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }

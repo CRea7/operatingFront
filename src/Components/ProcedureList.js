@@ -6,7 +6,7 @@ import '../App.css';
 import { Table} from 'react-bootstrap';
 //import procedureservice from "../services/procedureservice";
 
-export default class ProcdureList extends React.Component{
+export default class ProcedureList extends React.Component{
 
     constructor(props) {
         super(props);
@@ -77,18 +77,30 @@ export default class ProcdureList extends React.Component{
 
         var id = procedure.id;
 
-        axios.put(`http://localhost:3000/api/procedures/${id}/awaiting`)
-            .then(res => {
-                console.log(res)
-                window.location.reload(false);
-            })
+        if(procedure.status === "Draft")
+        {
+            if (window.confirm('Are you sure you wish to send this procedure for approval?'))
+            {
+                axios.put(`http://localhost:3000/api/procedures/${id}/awaiting`)
+                    .then(res => {
+                        console.log(res)
+                        window.location.reload(false);
+                    })
+            }
+        }
+        else
+        {
+            alert("can only send Draft procedures for approval")
+        }
+
+
     }
 
     handleClick = (procedure) => {
 
         var id = procedure.id;
 
-        if(procedure.status === "draft" || procedure.status === "awaiting approval")
+        if(procedure.status === "Draft" || procedure.status === "Awaiting Approval")
         {
             window.location.href = `/ProcedureEdit/${id}`
         }
@@ -126,15 +138,16 @@ export default class ProcdureList extends React.Component{
         const revnoop = parseInt(revnoo)
         const hake = revnoop + 1;
 
-        axios.post(`http://localhost:3000/api/procedures`, {title: this.state.title, revnum: hake, status: "draft", department: this.state.department, content: this.state.content, creator: localStorage.getItem('email')})
+        axios.post(`http://localhost:3000/api/procedures`, {title: this.state.title, revnum: hake, status: "Draft", department: this.state.department, content: this.state.content, creator: localStorage.getItem('email')})
             .then(res => {
                 console.log(res)
+                window.location.reload(false);
             })
 
     }
 
     reviseCheck(procedure) {
-        if(procedure.status === "current")
+        if(procedure.status === "Current")
         {
             if (window.confirm('Are you sure you wish to revise this procedure?')) this.handleRevision(procedure)
         }
@@ -169,15 +182,15 @@ export default class ProcdureList extends React.Component{
                 <td>{procedure.department}</td>
                 <td>{procedure.status}</td>
                 <td onClick={() => { if (window.confirm('Are you sure you wish to delete this procedure?')) this.handleDelete(procedure) } }><FontAwesomeIcon icon="trash"></FontAwesomeIcon></td>
-                <td onClick={() => { if (window.confirm('Are you sure you wish to send this procedure for approval?')) this.handleSendApprove(procedure) } }><FontAwesomeIcon icon="paper-plane"/></td>
+                <td onClick={() =>  this.handleSendApprove(procedure) }><FontAwesomeIcon icon="paper-plane"/></td>
                 <td onClick={() => this.handleClick(procedure)}><FontAwesomeIcon icon="pencil-alt"></FontAwesomeIcon></td>
                 <td onClick={() => this.reviseCheck(procedure)}> <FontAwesomeIcon icon="recycle"/> </td>
             </tr>
         })
             return(
                 <div className="container center_div">
-                <Table className="protable" striped bordered hover>
-                    <thead>
+                <Table className="protable" responsive>
+                    <thead className="thead">
                         <th>ID</th>
                         <th>Title</th>
                         <th>Revision No.</th>

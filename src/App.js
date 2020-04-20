@@ -41,7 +41,7 @@ class App extends Component {
 
     checkLoginStatus() {
         if(localStorage.getItem('id') != null){
-            console.log("HERE")
+            console.log("HERE");
             this.setState({
                 loggedInStatus: "LOGGED_IN",
                 email: localStorage.getItem('email'),
@@ -54,7 +54,7 @@ class App extends Component {
         }
         else
         {
-            localStorage.clear()
+            localStorage.clear();
             this.setState({
                 loggedInStatus: "NOT_LOGGED_IN",
                 email: "",

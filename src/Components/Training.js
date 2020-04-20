@@ -46,8 +46,9 @@ export default class ProcdureList extends React.Component{
             res.data.data.forEach(train => {
                 console.log("TRAIN " + localStorage.getItem("email"))
                 if (train.email === localStorage.getItem("email") && train.status === "Unfinished") {
+                    console.log("SHOuLD HIT ONCE")
                     this.state.procedures.forEach(pro => {
-                        if(train.procedure === pro.title)
+                        if(train.procedure === pro.title && pro.status === "Current")
                         {
                             console.log("title " + pro.title)
                             train.proId = pro.id;
@@ -163,7 +164,7 @@ export default class ProcdureList extends React.Component{
         return(
             <div className="container center_div">
                 <Table className="protable" striped bordered hover>
-                    <thead>
+                    <thead className="thead">
                     <th>ID</th>
                     <th>Proceudre</th>
                     <th>Department</th>

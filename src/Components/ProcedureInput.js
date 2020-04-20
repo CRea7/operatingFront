@@ -13,7 +13,7 @@ export default class ProcdureList extends React.Component{
             title: "",
             revnum: 1,
             file: null,
-            status: "draft",
+            status: "Draft",
             department: ""
         };
     }
@@ -25,6 +25,27 @@ export default class ProcdureList extends React.Component{
         if(localStorage.getItem('id') == null)
         {
             this.props.history.push("/")
+        }
+
+        if (localStorage.getItem('approver') == null && localStorage.getItem('admin') == null)
+        {
+            this.props.history.push("/Training")
+        }
+
+        if (localStorage.getItem('approver') != null)
+        {
+            this.setState({department: localStorage.getItem('department')});
+            this.hide();
+        }
+
+    }
+
+    hide() {
+        var x = document.getElementById("myDIV");
+        if (localStorage.getItem('approver') == "True") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
         }
     }
 
@@ -59,18 +80,19 @@ export default class ProcdureList extends React.Component{
         axios.post(`http://localhost:3000/api/procedures`, data)
             .then(res => {
                 console.log(res)
+                if (window.confirm('Procdure submitted. Procedure may take a moment to upload after submitting')) window.location.href = `/Procedures`
             })
 
     }
     render() {
         return(
-            <div className="container center_div borders">
-            <Form onSubmit={this.handleSubmit}>
+            <div className="width_div container borders">
+            <Form className="protable" onSubmit={this.handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlInput1">
                     <Form.Label>Operating procedure title</Form.Label>
                     <Form.Control type="text" name="title" onChange={this.handleChange}/>
                 </Form.Group>
-                <Form.Group controlId="exampleForm.ControlSelect1">
+                <Form.Group id="myDIV" controlId="exampleForm.ControlSelect1">
                     <Form.Label>Select Department</Form.Label>
                     <Form.Control as="select"  name="department" onChange={this.handleDep}>
                         <option></option>
